@@ -2,6 +2,8 @@
 const skills: string[] = ['Dev', 'DevOps', 'Testings'];
 // const skills: any[] = ['Dev', 'DevOps', 1] - плохое
 
+
+
 for(const skill of skills){
     console.log(skill.toLowerCase());
 }

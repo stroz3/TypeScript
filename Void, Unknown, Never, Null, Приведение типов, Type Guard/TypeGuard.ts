@@ -45,3 +45,6 @@ function setRoleZero(user: User | Admin){
         throw new Error('Пользователь не админ');
     }
 }
+
+
+

@@ -4,7 +4,7 @@ interface  RequestToServer {
     to: number;
 }
 
-enum Status {
+enum PaymentStatus {
     Success = 'success',
     Failed = 'failed'
 }
@@ -25,12 +25,12 @@ interface SuccessResponse extends RequestToServer{
 // Более правильно
 
 interface ResponseFromServerSuccess extends SuccessResponse{
-    status: Status.Success;
+    status: PaymentStatus.Success;
     data: SuccessResponse;
 }
 
 interface ResponseFromServerFailed extends FailedResponse{
-    status: Status.Failed;
+    status: PaymentStatus.Failed;
     data: FailedResponse;
 }
 // function get(): ResponseFromServerSuccess | ResponseFromServerFailed{

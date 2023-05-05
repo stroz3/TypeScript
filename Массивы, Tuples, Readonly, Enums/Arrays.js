@@ -6,6 +6,6 @@ for (const skill of skills) {
 }
 const result = skills
     .filter((s) => s !== 'DevOps')
-    .map(s => s + '! ')
+    .map(s => { return 1; })
     .reduce((a, b) => a + b);
 console.log(result);

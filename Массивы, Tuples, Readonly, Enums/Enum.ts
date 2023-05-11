@@ -34,7 +34,7 @@ function action(status: StatusCode2){
 }
 
 action(StatusCode2.FAILED)
-action(2)
+action(2);
 // action('p')
 
 enum Roles{

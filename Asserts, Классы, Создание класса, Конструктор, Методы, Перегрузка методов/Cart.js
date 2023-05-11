@@ -16,6 +16,23 @@ const products = [
         price: 25000
     }
 ];
+class Delivery {
+    constructor(date) {
+        this.date = date;
+    }
+}
+class Home extends Delivery {
+    constructor(date, address) {
+        super(date);
+        this.address = address;
+    }
+}
+class Point extends Delivery {
+    constructor(storeId) {
+        super(new Date());
+        this.storeId = storeId;
+    }
+}
 const product = {
     id: 4,
     name: 'Ipad 6',
@@ -23,15 +40,12 @@ const product = {
 };
 const deliver = {
     date: new Date(1478708162000),
-    adress: 'ул. Мечникова д. 116 кв. 12'
+    address: 'ул. Мечникова д. 116 кв. 12'
 };
 const deliverPoint = {
     date: new Date(),
     storeId: 1
 };
-function DeliveryGuard(deliver) {
-    return deliver.adress !== undefined || ('adress' in deliver);
-}
 class Cart {
     constructor() {
         this._products = [];
@@ -63,47 +77,43 @@ class Cart {
         }
     }
     getPrice() {
-        let allPrice = 0;
-        this._products.forEach(el => {
-            if (el.price != 0) {
-                allPrice += el.price;
-            }
-        });
-        this._price = allPrice;
-        return this._price;
+        return this._price = this._products.map(el => el.price).reduce((p1, p2) => p1 + p2);
     }
     setDelivery(delivery) {
-        if (DeliveryGuard(delivery)) {
-            this._delivery = delivery;
-        }
-        else {
-            delivery.date = new Date();
-            this._delivery = delivery;
-        }
+        this._delivery = delivery;
     }
     checkout() {
         let name = this.products.map(el => el.name);
-        if (DeliveryGuard(this._delivery) && this._products) {
-            return `Заказ оформлен
-                Продукты: ${name.concat()},
-                Доставка: Курьером по адрессу - ${this._delivery.adress}
-                Цена: ${this._price}
-            `;
-        }
-        else if (!DeliveryGuard(this._delivery) && this._products) {
-            return `Заказ оформлен
-                Продукты: ${name.concat()},
-                Доставка: В пункт выдачи - ${this._delivery.storeId}
-                Цена: ${this._price}
-            `;
-        }
-        else if (!this._delivery) {
-            throw new Error('Укажите адресс доставки или пункт выдачи');
-        }
-        else if (!this._products) {
+        if (this._products.length === 0) {
             throw new Error('Корзина пуста');
         }
-        throw new Error('Непредвиденная ошибка, попробуйте позже');
+        else if (!this._delivery) {
+            throw new Error('Укажите адресс');
+        }
+        else {
+            return 'Success';
+        }
+        //
+        // if(DeliveryGuard(this._delivery) && this._products){
+        //     return `Заказ оформлен
+        //         Продукты: ${name.concat()},
+        //         Доставка: Курьером по адрессу - ${this._delivery.address}
+        //         Цена: ${this._price}
+        //     `;
+        // }
+        // else if(!DeliveryGuard(this._delivery) && this._products){
+        //     return `Заказ оформлен
+        //         Продукты: ${name.concat()},
+        //         Доставка: В пункт выдачи - ${this._delivery.storeId}
+        //         Цена: ${this._price}
+        //     `;
+        // }
+        // else if(!this._delivery){
+        //     throw new Error('Укажите адресс доставки или пункт выдачи')
+        // }else if(!this._products){
+        //     throw new Error('Корзина пуста')
+        // }
+        // throw new Error('Непредвиденная ошибка, попробуйте позже')
     }
 }
 let cart = new Cart();

@@ -18,9 +18,11 @@ const userTypeOf = {
     name: 'Вася'
 }
 
-type keyOfUserr = keyof typeof user;
+type keyOfUserr = keyof typeof userTypeOf;
 
 enum Direction {
     Up,
     Down
 }
+
+type d = keyof typeof Direction;
